@@ -1,0 +1,16 @@
+CREATE TABLE Prescriptions( RX int PRIMARY KEY, name text, numberSupplied int, numberOfRefills int, sideEffects text);
+
+
+CREATE TABLE Patients( SSN text PRIMARY KEY, fName text, mName text, lName text, dateOfBirth text, insuranceName text, address text);
+
+
+CREATE TABLE Doctors(ID text PRIMARY KEY, location text, name text);
+
+
+CREATE TABLE prescribe(	RX int not null, ID int not null, FOREIGN KEY( RX ) references Prescriptions( RX ), FOREIGN KEY( ID ) references Doctors( ID ), PRIMARY KEY( RX, ID) );
+
+
+CREATE TABLE have( SSN text not null, RX int not null, FOREIGN KEY( SSN ) references Patients( SSN ), FOREIGN KEY( RX ) references Prescriptions( RX ), PRIMARY KEY( SSN, RX) );
+
+
+CREATE TABLE see(	 ID text not null, SSN text not null, FOREIGN KEY( ID ) references Doctors( ID ), FOREIGN KEY( SSN ) references Patients( SSN ), PRIMARY KEY( ID, SSN ) );
